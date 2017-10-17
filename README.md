@@ -13,7 +13,11 @@ chat-provider模块与chat-service模块要放到同一个web容器中启动。�
 
 处理流程：
 1、客户端发起请求创建WebSocket链接
+
 2、服务端chat-service模块接收请求，与客户端建立链接，并保存session信息到内存中，在线人数+1（服务端与客户端断开链接时，在线人数-1）
+
 3、chat-service模块对消息进行编码，使用dubbo广播的方式调用chat-provider模块的服务
+
 4、chat-provider模块服务内部再通过HTTP的方式回调chat-service模块（chat-provider只通知当前web容器内的chat-service模块）
+
 5、chat-service模块再收到HTTP请求后，将消息进行解码，发送消息给本地维护的客户端
