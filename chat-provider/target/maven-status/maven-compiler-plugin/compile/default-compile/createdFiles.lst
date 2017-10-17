@@ -1,0 +1,5 @@
+com\kingsoft\utils\HttpUtil.class
+com\kingsoft\Contants.class
+com\kingsoft\service\impl\TransferMessageService.class
+com\kingsoft\tools\JsonObjectMapper$1.class
+com\kingsoft\tools\JsonObjectMapper.class

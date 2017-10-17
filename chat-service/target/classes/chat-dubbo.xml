@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="chat-service" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://192.168.10.72:2181" />
+	<!-- 集群地址配置方式，第一个是主，其它的是备 -->
+	<!--<dubbo:registry address="zookeeper://127.0.0.1:2181?backup=10.1.8.37:2181,10.1.8.38:2181,10.1.8.92:2181" />-->
+
+	<!-- 使用广播的方式调用服务接口 -->
+	<!-- 使用cluster="broadcast" 实现广播式通信 -->
+	<dubbo:reference id="transferMessage" interface="com.kingsoft.service.ITransferMessage" check="false" timeout="10000" cluster="broadcast" />
+
+	<!-- 公共 -->
+	<bean id="appContext" class="com.kingsoft.utils.WebApplicationContext" />
+
+</beans>

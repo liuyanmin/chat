@@ -1,0 +1,4 @@
+com\kingsoft\controller\ChatController.class
+com\kingsoft\tools\JsonObjectMapper.class
+com\kingsoft\controller\NoticeController.class
+com\kingsoft\tools\JsonObjectMapper$1.class
