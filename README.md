@@ -11,9 +11,11 @@ chat-provider:dubbo服务
 
 chat-service:业务处理
 
+
 启动注意事项：
 
 chat-provider模块与chat-service模块要放到同一个web容器中启动。因为chat-provider模块内部需要调用chat-service模块的接口，通过Http的方式调用，所以两个模块的IP地址和端口号要一致。
+
 
 处理流程：
 
