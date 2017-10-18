@@ -126,8 +126,9 @@ public class RedisService {
                 break;
             }
         }
-        if(!hasUpdate)
+        if(!hasUpdate) {
             result.add(newItem);
+        }
         hset(cache,key,result);
         return true;
     }

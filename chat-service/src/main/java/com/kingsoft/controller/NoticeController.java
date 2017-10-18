@@ -2,7 +2,6 @@ package com.kingsoft.controller;
 
 import com.kingsoft.Constants;
 import com.kingsoft.utils.RedisTemplate;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +39,6 @@ public class NoticeController {
         //群发消息
         for(ChatController item: ChatController.webSocketSet){
             try {
-//                item.getSession().getBasicRemote().sendText(message);
                 item.sendMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -58,7 +55,7 @@ public class NoticeController {
     @RequestMapping("/count")
     @ResponseBody
     public Object onlineCount() {
-        Map<String, Object> returnMap = new HashMap<>();
+        Map<String, Object> returnMap = new HashMap<>(16);
         Map<String, String> countMap = redisTemplate.hgetAll(Constants.REDIS_CHAT_ONLINE_COUNT);
         Integer count = 0;
         for (String item : countMap.values()) {

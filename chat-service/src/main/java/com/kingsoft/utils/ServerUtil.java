@@ -22,7 +22,7 @@ public class ServerUtil {
      * @return
      */
     public static Map<String, Object> getEndPoints()  {
-        Map<String, Object> endPointsMap = new HashMap<>();
+        Map<String, Object> endPointsMap = new HashMap<>(16);
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             Set<ObjectName> objs = mbs.queryNames(new ObjectName("*:type=Connector,*"),

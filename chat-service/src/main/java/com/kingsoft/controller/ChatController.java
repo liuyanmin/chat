@@ -3,9 +3,8 @@ package com.kingsoft.controller;
 import com.kingsoft.Constants;
 import com.kingsoft.service.ITransferMessage;
 import com.kingsoft.service.RedisService;
+import com.kingsoft.tools.WebApplicationContext;
 import com.kingsoft.utils.RedisTemplate;
-import com.kingsoft.utils.ServerUtil;
-import com.kingsoft.utils.WebApplicationContext;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -25,7 +24,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint(value = "/chat")
 public class ChatController extends RedisService {
 
-    // 类使用 @ServerEndpoint 注解后无法自动注入bean，所以不能使用@Autowired、@Resource注解自动注入
+    /**
+     * 类使用 @ServerEndpoint 注解后无法自动注入bean，所以不能使用@Autowired、@Resource注解自动注入
+     */
     private ITransferMessage transferMessage;
     private RedisTemplate redisTemplate;
     public ChatController() {
@@ -33,10 +34,14 @@ public class ChatController extends RedisService {
         redisTemplate = (RedisTemplate) WebApplicationContext.getBean("redisTemplate");
     }
 
-    //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
+    /**
+     * concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
+     */
     public static CopyOnWriteArraySet<ChatController> webSocketSet = new CopyOnWriteArraySet<>();
 
-    //与某个客户端的连接会话，需要通过它来给客户端发送数据
+    /**
+     * 与某个客户端的连接会话，需要通过它来给客户端发送数据
+     */
     private Session session;
 
     public void setSession(Session session) {
